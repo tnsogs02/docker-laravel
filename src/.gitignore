@@ -1,0 +1,13 @@
+/node_modules
+/public/storage
+/vendor
+/vendor-src
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+.vscode/
+/storage
+composer.lock
+npm-debug.log
+
