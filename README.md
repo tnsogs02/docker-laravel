@@ -16,7 +16,7 @@
 
 ## 資料庫測驗 - 2
  - 首先我會先將*GROUP BY*與*JOIN*操作與條件篩選所使用的*bnbs.id*, *orders.bnb_id*, *orders.currency*列做BTree索引。
- - 若效能仍然不夠理想，且確定日後會經常用到該類查詢（以訂單日期範圍查詢），則將orders.created_at內容以date格式另存一列，並做BTree索引，往後需要日期範圍查詢時，則使用此列。
+ - 若效能仍然不夠理想，且確定日後會經常用到該類查詢（以訂單日期範圍查詢），則將orders.created_at內容以date格式另存一列，並做BTree索引，往後需以日期範圍查詢時，則使用此列。
 
 ## API 實作測驗
 ### 鳴謝
@@ -31,7 +31,7 @@ Docker Compose環境建置參考了*aschmelyun/docker-compose-laravel*專案，�
 
 ### 單元測試
 
- - 使用指令 `docker exec -t *Your PHP Container Name* php artisan test` 以進入Container終端機進行操作
+ - 使用指令 `docker exec -t *Your PHP Container Name* php artisan test` 以執行單元測試
  - 單元測試檔案位於`src/tests/Unit/` 下
 
 ###  SOLID實踐
