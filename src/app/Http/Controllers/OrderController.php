@@ -20,11 +20,11 @@ class OrderController extends Controller
     {
         $sanitizedOrderRequest = $orderRequest;
         $convertedOrder = $this->service->convert($sanitizedOrderRequest->validated());
-        if($convertedOrder->error){
+        if($convertedOrder['error']){
             throw new HttpResponseException(response()->json([
-                'status' => $convertedOrder->message,
+                'status' => $convertedOrder['message'],
             ], 400));
         }
-        return response()->json($convertedOrder->arrayOrder);
+        return response()->json($convertedOrder['arrayOrder']);
     }
 }

@@ -6,46 +6,47 @@ use stdClass;
 
 class OrderService
 {
-    public function convert(array $validatedOrder)
+    public function convert(array $sanitizedOrder)
     {
         // 待確認：需求方未明示price>2000檢查置於USD轉TWD前或後
         // 待確認：price下限, price轉換後溢位疑慮
 
-        $returnObj = new stdClass;
-        $returnObj->error = true;
-        $returnObj->message = "";
-        $returnObj->arrayOrder = array();
+        $returnArray = [
+            "error" => true,
+            "message" => "",
+            "arrayOrder" => [],
+        ];
 
-        if(preg_match('/[^A-Za-z ]/', $validatedOrder['name'], $matches) === 1){
-            $returnObj->message = "Name contains non-English characters";
-            return $returnObj;
+        if(preg_match('/[^A-Za-z ]/', $sanitizedOrder['name'], $matches) === 1){
+            $returnArray['message'] = "Name contains non-English characters";
+            return $returnArray;
         }
 
-        foreach(explode(' ', $validatedOrder['name']) as $namePiece){
+        foreach(explode(' ', $sanitizedOrder['name']) as $namePiece){
             if(!ctype_upper($namePiece[0])){
-                $returnObj->message = "Name is not capitalized";
-                return $returnObj;
+                $returnArray['message'] = "Name is not capitalized";
+                return $returnArray;
             }
         }
 
-        if(!in_array($validatedOrder['currency'], ["TWD", "USD"])){
-            $returnObj->message = "Currency format is wrong";
-            return $returnObj;
+        if(!in_array($sanitizedOrder['currency'], ["TWD", "USD"])){
+            $returnArray['message'] = "Currency format is wrong";
+            return $returnArray;
         }
 
-        if($validatedOrder['currency'] == "USD"){
-            $validatedOrder['currency'] = "TWD";
-            $validatedOrder['price'] = $validatedOrder['price'] * 31;
+        if($sanitizedOrder['currency'] == "USD"){
+            $sanitizedOrder['currency'] = "TWD";
+            $sanitizedOrder['price'] = $sanitizedOrder['price'] * 31;
         }
 
-        if($validatedOrder['price'] > 2000){
-            $returnObj->message = "Price is over 2000";
-            return $returnObj;
+        if($sanitizedOrder['price'] > 2000){
+            $returnArray['message'] = "Price is over 2000";
+            return $returnArray;
         }
 
-        $returnObj->error = false;
-        $returnObj->arrayOrder = $validatedOrder;
+        $returnArray['error'] = false;
+        $returnArray['arrayOrder'] = $sanitizedOrder;
 
-        return $returnObj;
+        return $returnArray;
     }
 }
