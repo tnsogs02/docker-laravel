@@ -39,6 +39,7 @@ class OrderServiceTest extends TestCase
         $output = $orderService->convert($sanitizedOrder);
         $this->assertEquals($expected['error'], $output['error']);
         $this->assertEquals($expected['message'], $output['message']);
+        $this->assertEquals($expected['arrayOrder'], $output['arrayOrder']);
     }
 
     /**
@@ -73,6 +74,7 @@ class OrderServiceTest extends TestCase
                 [
                     "error" => true,
                     "message" => "Name contains non-English characters",
+                    "arrayOrder" => []
                 ]
             ],
             // Case: Name is not capitalized
@@ -91,6 +93,7 @@ class OrderServiceTest extends TestCase
                 [
                     "error" => true,
                     "message" => "Name is not capitalized",
+                    "arrayOrder" => []
                 ]
             ],
             [
@@ -108,6 +111,7 @@ class OrderServiceTest extends TestCase
                 [
                     "error" => true,
                     "message" => "Name is not capitalized",
+                    "arrayOrder" => []
                 ]
             ],
             [
@@ -125,6 +129,7 @@ class OrderServiceTest extends TestCase
                 [
                     "error" => true,
                     "message" => "Name is not capitalized",
+                    "arrayOrder" => []
                 ]
             ],
             // Case: Price is over 2000
@@ -143,6 +148,7 @@ class OrderServiceTest extends TestCase
                 [
                     "error" => true,
                     "message" => "Price is over 2000",
+                    "arrayOrder" => []
                 ]
             ],
             // Case: Price is over 2000(USD to TWD)
@@ -161,6 +167,7 @@ class OrderServiceTest extends TestCase
                 [
                     "error" => true,
                     "message" => "Price is over 2000",
+                    "arrayOrder" => []
                 ]
             ],
             // Case: Currency format is wrong
@@ -179,6 +186,7 @@ class OrderServiceTest extends TestCase
                 [
                     "error" => true,
                     "message" => "Currency format is wrong",
+                    "arrayOrder" => []
                 ]
             ],
         ];
